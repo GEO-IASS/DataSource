@@ -2,17 +2,45 @@ classdef(Abstract) DataSource < handle
    properties(Abstract)
       
    end
+   
    properties(SetAccess = protected)
       tStart
       Fs
       dim
       data
+      
+      path
+      filename
+      fid
+      
+      inputFormat
+      outputFormat
+      
+      index
+      
+      enabled = false
+   end
+   properties(Abstract)
+      done
+   end
+   methods(Abstract)
+      open
+      close
+      
+      next
+      load
+   end
+   
+   methods(Abstract, Access = protected)
+      getDim(self)
+      %getFs(self)
    end
    
    methods
-      
-      function dim = size(self)
-         dim = size(self.data);
+      function dim = get.dim(self)
+         % Wrap abstract function
+         dim = getDim(self);
+         self.dim = dim;
       end
       
       function B = subsref(self,S)
