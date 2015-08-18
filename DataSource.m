@@ -4,6 +4,8 @@ classdef(Abstract) DataSource < handle
    end
    
    properties(SetAccess = protected)
+      hdr
+      
       tStart
       Fs
       dim
